@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Ultimate DevOps Color System — Charcoal + Cyan + Multi-Accent</title>
+    <style>
+        :root {
+            --radius: 12px;
+            --shadow: 0 2px 12px rgba(0,0,0,.08);
+            --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+            --sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--sans);
+            margin: 32px;
+            color: #0f172a;
+            background: linear-gradient(135deg, #fafbfc 0%, #f4f6f8 30%, #f8fafb 70%, #fefffe 100%);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        h1 {
+            margin: 0 0 16px;
+            font-size: 40px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #374151, #06b6d4, #f43f5e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            margin: 32px 0 12px;
+            font-size: 24px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        h3 {
+            margin: 24px 0 12px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #4b5563;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #6b7280;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        .wrap {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .panel {
+            border: 1px solid rgba(0,0,0,.04);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            background: rgba(255,255,255,.8);
+            backdrop-filter: blur(20px);
+        }
+
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .section-board {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-auto-rows: 110px;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .rowlabel {
+            grid-column: 1 / -1;
+            font-weight: 600;
+            margin-top: 16px;
+            color: #374151;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .chip {
+            border-radius: var(--radius);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255,255,255,.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chip::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .chip:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,.15);
+        }
+
+        .chip:hover::before {
+            opacity: 1;
+        }
+
+        .cap {
+            font-size: 14px;
+            opacity: .9;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .hex {
+            font-size: 13px;
+            font-family: var(--mono);
+            letter-spacing: .5px;
+            font-weight: 700;
+            z-index: 1;
+        }
+
+        .usage-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .card {
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(255,255,255,.4);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(12px);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border-radius: 10px;
+            border: 1px solid transparent;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            margin: 4px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,.15);
+        }
+
+        .row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .link {
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .badge {
+            display: inline-block;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 13px;
+            border: 1px solid transparent;
+            font-weight: 600;
+            margin: 4px;
+        }
+
+        .theme-desc {
+            font-size: 16px;
+            color: #6b7280;
+            margin-bottom: 24px;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .use-case {
+            background: rgba(249, 250, 251, 0.6);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 12px 0;
+            border-left: 4px solid #06b6d4;
+        }
+
+        .use-case h4 {
+            margin: 0 0 8px 0;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .use-case p {
+            margin: 0;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        @media (max-width: 768px) {
+            .section-board {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+            }
+            .usage-examples {
+                grid-template-columns: 1fr;
+            }
+            body {
+                margin: 20px;
+            }
+            h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Ultimate DevOps Color System</h1>
+    <div class="subtitle">A comprehensive palette that combines the best of all worlds — sophisticated, functional, and memorable</div>
+    
+    <div class="wrap">
+        <!-- Main Color System -->
+        <div class="panel">
+            <h2>Complete Color System</h2>
+            <div class="theme-desc">"Professional foundation with strategic accent colors for every use case"</div>
+            <div class="section-board" id="complete"></div>
+            
+            <div class="use-case">
+                <h4>Usage Strategy</h4>
+                <p><strong>Charcoal:</strong> Primary brand color, headers, main CTAs • <strong>Cyan:</strong> Links, secondary actions, highlights • <strong>Coral:</strong> Urgent actions, errors, important alerts • <strong>Emerald:</strong> Success states, "go" indicators, positive metrics • <strong>Amber:</strong> Warnings, pending states, attention-grabbing elements</p>
+            </div>
+            
+            <div class="usage-examples" id="complete-ui"></div>
+        </div>
+
+        <!-- Individual Color Breakdowns -->
+        <div class="panel">
+            <h2>Color Psychology & Use Cases</h2>
+            
+            <h3>Foundation Colors</h3>
+            <div class="color-grid" id="foundation"></div>
+            
+            <h3>Accent Colors - Strategic Applications</h3>
+            <div class="color-grid" id="accents"></div>
+            
+            <div class="use-case" style="border-left-color: #f43f5e;">
+                <h4>🔴 Coral - Human Touch</h4>
+                <p>Error states, urgent notifications, "stop" actions, critical alerts. The warm alternative to harsh reds.</p>
+            </div>
+            
+            <div class="use-case" style="border-left-color: #10b981;">
+                <h4>🟢 Emerald - All Systems Go</h4>
+                <p>Success confirmations, health indicators, "deploy" buttons, positive metrics. Classic DevOps green with modern sophistication.</p>
+            </div>
+            
+            <div class="use-case" style="border-left-color: #ea580c;">
+                <h4>🟠 Enhanced Amber - Attention</h4>
+                <p>Warning states, pending processes, "review required" indicators. Demands attention without being alarming.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* Utility Functions */
+        function hexToRgb(hex) {
+            const h = hex.replace('#','');
+            return {
+                r: parseInt(h.slice(0,2),16),
+                g: parseInt(h.slice(2,4),16),
+                b: parseInt(h.slice(4,6),16)
+            };
+        }
+
+        function luminance(hex) {
+            const {r,g,b} = hexToRgb(hex);
+            const f = v => (v <= 10.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4));
+            return 0.2126 * f(r/255) + 0.7152 * f(g/255) + 0.0722 * f(b/255);
+        }
+
+        function contrastOn(bg) {
+            return luminance(bg) > 0.5 ? '#0f172a' : '#f8fafc';
+        }
+
+        function makeChip(color, label, fgOverride) {
+            const c = document.createElement('div');
+            c.className = 'chip';
+            c.style.background = color;
+            c.style.color = fgOverride || contrastOn(color);
+            
+            const cap = document.createElement('div');
+            cap.className = 'cap';
+            cap.textContent = label;
+            
+            const hex = document.createElement('div');
+            hex.className = 'hex';
+            hex.textContent = color.toUpperCase();
+            
+            c.appendChild(cap);
+            c.appendChild(hex);
+            return c;
+        }
+
+        function addRowLabel(container, text) {
+            const l = document.createElement('div');
+            l.className = 'rowlabel';
+            l.textContent = text;
+            container.appendChild(l);
+        }
+
+        /* Ultimate Color System */
+        const systemLight = {
+            fg: '#374151',
+            bg: '#fdfdfe',          
+            bgAlt: '#f8fafb',       
+            primary: '#4b5563',     // Charcoal - main brand
+            secondary: '#06b6d4',   // Cyan - links/highlights
+            coral: '#f43f5e',       // Urgent/errors
+            emerald: '#10b981',     // Success/go states
+            amber: '#ea580c'        // Warnings/attention
+        };
+        
+        const systemDark = {
+            fg: '#f9fafb',
+            bg: '#111827',
+            bgAlt: '#0f172a',
+            primary: '#9ca3af',     // Light charcoal
+            secondary: '#22d3ee',   // Bright cyan
+            coral: '#fb7185',       // Soft coral
+            emerald: '#34d399',     // Bright emerald
+            amber: '#fb923c'        // Vibrant amber
+        };
+
+        function completeBoard(containerId, light, dark) {
+            const root = document.getElementById(containerId);
+            
+            addRowLabel(root, 'Light Mode - Complete System');
+            root.appendChild(makeChip(light.bg, 'Background', light.fg));
+            root.appendChild(makeChip(light.primary, 'Primary (Charcoal)', contrastOn(light.primary)));
+            root.appendChild(makeChip(light.secondary, 'Secondary (Cyan)', contrastOn(light.secondary)));
+            root.appendChild(makeChip(light.coral, 'Coral Accent', contrastOn(light.coral)));
+            root.appendChild(makeChip(light.emerald, 'Emerald Accent', contrastOn(light.emerald)));
+            root.appendChild(makeChip(light.amber, 'Amber Accent', contrastOn(light.amber)));
+            
+            addRowLabel(root, 'Dark Mode - Complete System');
+            root.appendChild(makeChip(dark.bg, 'Background', dark.fg));
+            root.appendChild(makeChip(dark.primary, 'Primary (Charcoal)', contrastOn(dark.primary)));
+            root.appendChild(makeChip(dark.secondary, 'Secondary (Cyan)', contrastOn(dark.secondary)));
+            root.appendChild(makeChip(dark.coral, 'Coral Accent', contrastOn(dark.coral)));
+            root.appendChild(makeChip(dark.emerald, 'Emerald Accent', contrastOn(dark.emerald)));
+            root.appendChild(makeChip(dark.amber, 'Amber Accent', contrastOn(dark.amber)));
+        }
+
+        function foundationColors() {
+            const root = document.getElementById('foundation');
+            root.appendChild(makeChip('#4b5563', 'Charcoal Primary'));
+            root.appendChild(makeChip('#06b6d4', 'Cyan Secondary'));
+            root.appendChild(makeChip('#fdfdfe', 'Light Background', '#374151'));
+            root.appendChild(makeChip('#111827', 'Dark Background'));
+        }
+
+        function accentColors() {
+            const root = document.getElementById('accents');
+            root.appendChild(makeChip('#f43f5e', 'Coral'));
+            root.appendChild(makeChip('#10b981', 'Emerald'));
+            root.appendChild(makeChip('#ea580c', 'Enhanced Amber'));
+        }
+
+        function completeUiExamples(containerId, light, dark) {
+            const root = document.getElementById(containerId);
+            
+            // Light comprehensive example
+            const lightCard = document.createElement('div');
+            lightCard.className = 'card';
+            lightCard.style.background = `linear-gradient(135deg, ${light.bg} 0%, ${light.bgAlt} 100%)`;
+            lightCard.style.color = light.fg;
+            lightCard.innerHTML = `<div style="font-weight:700;margin-bottom:16px;font-size:18px">DevOps Dashboard - Light</div>`;
+            
+            const lightLink = document.createElement('div');
+            lightLink.className = 'link';
+            lightLink.style.color = light.secondary;
+            lightLink.textContent = 'View all deployments →';
+            
+            const lrow = document.createElement('div');
+            lrow.className = 'row';
+            lrow.style.flexDirection = 'column';
+            lrow.style.alignItems = 'flex-start';
+            lrow.style.gap = '16px';
+            
+            const buttonRow1 = document.createElement('div');
+            buttonRow1.style.display = 'flex';
+            buttonRow1.style.gap = '8px';
+            buttonRow1.style.flexWrap = 'wrap';
+            
+            const lbtnPrimary = document.createElement('button');
+            lbtnPrimary.className = 'btn';
+            lbtnPrimary.textContent = 'Deploy';
+            lbtnPrimary.style.background = light.primary;
+            lbtnPrimary.style.color = contrastOn(light.primary);
+            
+            const lbtnSecondary = document.createElement('button');
+            lbtnSecondary.className = 'btn';
+            lbtnSecondary.textContent = 'Monitor';
+            lbtnSecondary.style.background = light.secondary;
+            lbtnSecondary.style.color = contrastOn(light.secondary);
+            
+            const lbtnSuccess = document.createElement('button');
+            lbtnSuccess.className = 'btn';
+            lbtnSuccess.textContent = 'Approve';
+            lbtnSuccess.style.background = light.emerald;
+            lbtnSuccess.style.color = contrastOn(light.emerald);
+            
+            buttonRow1.appendChild(lbtnPrimary);
+            buttonRow1.appendChild(lbtnSecondary);
+            buttonRow1.appendChild(lbtnSuccess);
+            
+            const buttonRow2 = document.createElement('div');
+            buttonRow2.style.display = 'flex';
+            buttonRow2.style.gap = '8px';
+            buttonRow2.style.flexWrap = 'wrap';
+            
+            const lbtnWarn = document.createElement('button');
+            lbtnWarn.className = 'btn';
+            lbtnWarn.textContent = 'Review';
+            lbtnWarn.style.background = light.amber;
+            lbtnWarn.style.color = contrastOn(light.amber);
+            
+            const lbtnError = document.createElement('button');
+            lbtnError.className = 'btn';
+            lbtnError.textContent = 'Rollback';
+            lbtnError.style.background = light.coral;
+            lbtnError.style.color = contrastOn(light.coral);
+            
+            buttonRow2.appendChild(lbtnWarn);
+            buttonRow2.appendChild(lbtnError);
+            
+            const badgeRow = document.createElement('div');
+            badgeRow.style.display = 'flex';
+            badgeRow.style.gap = '8px';
+            badgeRow.style.flexWrap = 'wrap';
+            
+            const lbadgeSuccess = document.createElement('span');
+            lbadgeSuccess.className = 'badge';
+            lbadgeSuccess.textContent = 'Healthy';
+            lbadgeSuccess.style.background = `${light.emerald}15`;
+            lbadgeSuccess.style.color = light.emerald;
+            lbadgeSuccess.style.borderColor = `${light.emerald}40`;
+            
+            const lbadgeWarn = document.createElement('span');
+            lbadgeWarn.className = 'badge';
+            lbadgeWarn.textContent = 'Pending';
+            lbadgeWarn.style.background = `${light.amber}15`;
+            lbadgeWarn.style.color = light.amber;
+            lbadgeWarn.style.borderColor = `${light.amber}40`;
+            
+            const lbadgeInfo = document.createElement('span');
+            lbadgeInfo.className = 'badge';
+            lbadgeInfo.textContent = 'v2.1.3';
+            lbadgeInfo.style.background = `${light.secondary}15`;
+            lbadgeInfo.style.color = light.secondary;
+            lbadgeInfo.style.borderColor = `${light.secondary}40`;
+            
+            badgeRow.appendChild(lbadgeSuccess);
+            badgeRow.appendChild(lbadgeWarn);
+            badgeRow.appendChild(lbadgeInfo);
+            
+            lrow.appendChild(buttonRow1);
+            lrow.appendChild(buttonRow2);
+            lrow.appendChild(badgeRow);
+            
+            lightCard.appendChild(lightLink);
+            lightCard.appendChild(lrow);
+
+            // Dark comprehensive example
+            const darkCard = document.createElement('div');
+            darkCard.className = 'card';
+            darkCard.style.background = `linear-gradient(135deg, ${dark.bg} 0%, ${dark.bgAlt} 100%)`;
+            darkCard.style.color = dark.fg;
+            darkCard.style.borderColor = 'rgba(255,255,255,.08)';
+            darkCard.innerHTML = `<div style="font-weight:700;margin-bottom:16px;font-size:18px">DevOps Dashboard - Dark</div>`;
+            
+            const darkLink = document.createElement('div');
+            darkLink.className = 'link';
+            darkLink.style.color = dark.secondary;
+            darkLink.textContent = 'System status overview →';
+            
+            const drow = document.createElement('div');
+            drow.className = 'row';
+            drow.style.flexDirection = 'column';
+            drow.style.alignItems = 'flex-start';
+            drow.style.gap = '16px';
+            
+            const dbuttonRow1 = document.createElement('div');
+            dbuttonRow1.style.display = 'flex';
+            dbuttonRow1.style.gap = '8px';
+            dbuttonRow1.style.flexWrap = 'wrap';
+            
+            const dbtnPrimary = document.createElement('button');
+            dbtnPrimary.className = 'btn';
+            dbtnPrimary.textContent = 'Deploy';
+            dbtnPrimary.style.background = dark.primary;
+            dbtnPrimary.style.color = contrastOn(dark.primary);
+            
+            const dbtnSecondary = document.createElement('button');
+            dbtnSecondary.className = 'btn';
+            dbtnSecondary.textContent = 'Monitor';
+            dbtnSecondary.style.background = dark.secondary;
+            dbtnSecondary.style.color = contrastOn(dark.secondary);
+            
+            const dbtnSuccess = document.createElement('button');
+            dbtnSuccess.className = 'btn';
+            dbtnSuccess.textContent = 'Approve';
+            dbtnSuccess.style.background = dark.emerald;
+            dbtnSuccess.style.color = contrastOn(dark.emerald);
+            
+            dbuttonRow1.appendChild(dbtnPrimary);
+            dbuttonRow1.appendChild(dbtnSecondary);
+            dbuttonRow1.appendChild(dbtnSuccess);
+            
+            const dbuttonRow2 = document.createElement('div');
+            dbuttonRow2.style.display = 'flex';
+            dbuttonRow2.style.gap = '8px';
+            dbuttonRow2.style.flexWrap = 'wrap';
+            
+            const dbtnWarn = document.createElement('button');
+            dbtnWarn.className = 'btn';
+            dbtnWarn.textContent = 'Review';
+            dbtnWarn.style.background = dark.amber;
+            dbtnWarn.style.color = contrastOn(dark.amber);
+            
+            const dbtnError = document.createElement('button');
+            dbtnError.className = 'btn';
+            dbtnError.textContent = 'Rollback';
+            dbtnError.style.background = dark.coral;
+            dbtnError.style.color = contrastOn(dark.coral);
+            
+            dbuttonRow2.appendChild(dbtnWarn);
+            dbuttonRow2.appendChild(dbtnError);
+            
+            const dbadgeRow = document.createElement('div');
+            dbadgeRow.style.display = 'flex';
+            dbadgeRow.style.gap = '8px';
+            dbadgeRow.style.flexWrap = 'wrap';
+            
+            const dbadgeSuccess = document.createElement('span');
+            dbadgeSuccess.className = 'badge';
+            dbadgeSuccess.textContent = 'Healthy';
+            dbadgeSuccess.style.background = `${dark.emerald}25`;
+            dbadgeSuccess.style.color = dark.emerald;
+            dbadgeSuccess.style.borderColor = `${dark.emerald}50`;
+            
+            const dbadgeWarn = document.createElement('span');
+            dbadgeWarn.className = 'badge';
+            dbadgeWarn.textContent = 'Pending';
+            dbadgeWarn.style.background = `${dark.amber}25`;
+            dbadgeWarn.style.color = dark.amber;
+            dbadgeWarn.style.borderColor = `${dark.amber}50`;
+            
+            const dbadgeInfo = document.createElement('span');
+            dbadgeInfo.className = 'badge';
+            dbadgeInfo.textContent = 'v2.1.3';
+            dbadgeInfo.style.background = `${dark.secondary}25`;
+            dbadgeInfo.style.color = dark.secondary;
+            dbadgeInfo.style.borderColor = `${dark.secondary}50`;
+            
+            dbadgeRow.appendChild(dbadgeSuccess);
+            dbadgeRow.appendChild(dbadgeWarn);
+            dbadgeRow.appendChild(dbadgeInfo);
+            
+            drow.appendChild(dbuttonRow1);
+            drow.appendChild(dbuttonRow2);
+            drow.appendChild(dbadgeRow);
+            
+            darkCard.appendChild(darkLink);
+            darkCard.appendChild(drow);
+            
+            root.appendChild(lightCard);
+            root.appendChild(darkCard);
+        }
+
+        /* Initialize */
+        document.addEventListener('DOMContentLoaded', function() {
+            completeBoard('complete', systemLight, systemDark);
+            completeUiExamples('complete-ui', systemLight, systemDark);
+            foundationColors();
+            accentColors();
+        });
+    </script>
+</body>
+</html>
